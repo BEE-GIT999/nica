@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>รายงานคุณภาพน้ำ - ตำบลเกาะยอ</title>
+    <!-- นำเข้าไลบรารี Font Awesome สำหรับไอคอน -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- นำเข้า Google Fonts ฟอนต์ Sarabun สำหรับภาษาไทย -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">    
+    <title>อัลบั้มรูปภาพ</title>
+    <style>
+        @media (max-width: 768px) {
+        .sidebar {
+            width: 100px;
+            }
+        .form-container {
+            padding: 20px;
+            }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(145deg, #000000, #003898);
+            color: white;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+        }
+
+        /* Sidebar Links */
+        .sidebar ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            display: block;
+            padding: 15px;
+            transition: background-color 0.3s;
+        }
+
+         /* กำหนดลักษณะของโลโก้ใน Sidebar */
+         .sidebar img {
+            max-width: 100%; /* ปรับขนาดของรูปภาพให้มีความกว้างสูงสุดเท่ากับความกว้างของ container */
+            margin-bottom: 50px; /* ระยะห่างด้านล่าง */
+        }
+
+
+        .sidebar ul li a:hover {
+            background: linear-gradient(145deg, #ffffff, #003898);
+            color: #000000;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(145deg, #000000, #003898); /* พื้นหลังแบบไล่สี */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: white; /* เปลี่ยนสีลิงก์เป็นสีขาว */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
+        .album-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .album-container img {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .album-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+       <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <img src="/img/kpmm.png" alt="โลโก้หน่วยงาน">
+        </div>
+        <ul>
+            <li>
+                <a href="home.html"><i class="fas fa-home"></i> หน้าหลัก</a>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a href="water-quality-report.html"><i class="fas fa-tint"></i> ข้อมูลคุณภาพน้ำ<span>▼</span></a>
+                    <div class="dropdown-content">
+                        <a href="ky.html"><i class="fas fa-tint"></i>เกาะยอ</a>
+                        <a href="mo3.html"><i class="fas fa-tint"></i>แหล่งน้ำธรรมชาติ</a>
+                        <a href="st.html"><i class="fas fa-tint"></i>ทะเลสาบสงขลา</a>
+                        <a href="sapan.html"><i class="fas fa-tint"></i>หัวสะพาน</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="contact.html"><i class="fas fa-address-book"></i> ข้อมูลติดต่อ</a>
+            </li>
+            <li>
+                <a href="logout.html"><i class="fas fa-sign-out-alt"></i> ล็อกเอาท์</a>
+            </li>
+        </ul>
+    </div>    
+
+    <h1 style="text-align: center; margin: 20px;">อัลบั้มรูปภาพ</h1>
+    <div class="album-container">
+        <!-- เพิ่มรูปภาพในอัลบั้ม -->
+        <img src="/img/ky1.jpg" alt="รูปภาพ 1">
+        <img src="/img/ky2.jpg" alt="รูปภาพ 2">
+        <img src="/img/ky4.jpg" alt="รูปภาพ 3">
+        <img src="/img/ky5.jpg" alt="รูปภาพ 4">
+        <img src="/img/ky6.jpg" alt="รูปภาพ 5">
+        <img src="/img/ky10.jpg" alt="รูปภาพ 6">
+        <img src="/img/ky11.jpg" alt="รูปภาพ 6">
+        <img src="/img/ky12.jpg" alt="รูปภาพ 6">
+    </div>
+
+    <!-- Modal สำหรับแสดงรูปขยาย -->
+    <div class="modal" id="image-modal">
+        <span class="modal-close" id="modal-close">&times;</span>
+        <img id="modal-image" src="" alt="รูปขยาย">
+    </div>
+
+    <script>
+        const images = document.querySelectorAll('.album-container img');
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalClose = document.getElementById('modal-close');
+
+        // แสดงรูปขยายเมื่อคลิกรูปภาพ
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImage.src = img.src;
+            });
+        });
+
+        // ปิด Modal เมื่อคลิกปุ่มปิด
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // ปิด Modal เมื่อคลิกนอกกรอบรูปภาพ
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+    let isValid = true;
+
+        // ตรวจสอบชื่อผู้ใช้
+        const username = document.getElementById('username');
+        const usernameError = document.getElementById('usernameError');
+        if (!username.value.trim()) {
+            isValid = false;
+            username.style.borderColor = 'red';
+            usernameError.style.display = 'block';
+        } else {
+            username.style.borderColor = '#ccc';
+            usernameError.style.display = 'none';
+        }
+
+        // ตรวจสอบรหัสผ่าน
+        const password = document.getElementById('password');
+        const passwordError = document.getElementById('passwordError');
+        if (!password.value.trim()) {
+            isValid = false;
+            password.style.borderColor = 'red';
+            passwordError.style.display = 'block';
+        } else {
+            password.style.borderColor = '#ccc';
+            passwordError.style.display = 'none';
+        }
+
+        // ถ้าฟอร์มไม่ถูกต้อง จะไม่ส่งฟอร์ม
+        if (!isValid) {
+            event.preventDefault();
+        } else {
+            // ส่งผู้ใช้ไปยังหน้าแรกเมื่อข้อมูลถูกต้อง
+            event.preventDefault(); // ป้องกันการส่งฟอร์ม
+            window.location.href = 'home.html'; // เปลี่ยนเส้นทางไปหน้าแรก
+        }
+    });
+
+    </script>
+</body>
+</html>

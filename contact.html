@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าหลัก</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-image: url("/img/kohyor1.jpeg");
+            background-size: cover;
+
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(145deg, #000000, #003898);
+            color: white;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .sidebar img {
+            max-width: 100%;
+            margin-bottom: 50px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            display: block;
+            padding: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li a i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .sidebar ul li a:hover {
+            background: linear-gradient(145deg, #ffffff, #003898);
+            color: #000000;
+        }
+    
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(145deg, #000000, #003898); /* พื้นหลังแบบไล่สี */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgb(0, 0, 0);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .container {
+            display: flex;
+            width: 1250px;
+            margin: 10px;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.534);
+            border-radius: 8px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+ 
+        }
+
+        .contact-details {
+            width: 70%;
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+
+        .contact-details li {
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-details li i {
+            margin-right: 15px;
+            color: #000000;
+            font-size: 25px; /* ขนาดไอคอน */
+
+        }
+
+        .contact-details a {
+            text-decoration: none;
+            color: #000000;
+            font-size: 1.1rem;
+        }
+
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+
+        iframe {
+            width: 130%;
+            height: 250px;
+            margin-top: 50px;
+            border-radius: 8px;
+            padding-right: 200px;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <img src="/img/kpmm.png" alt="โลโก้หน่วยงาน">
+        </div>
+        <ul>
+            <li>
+                <a href="home.html"><i class="fas fa-home"></i> หน้าหลัก</a>
+            </li>
+            <li>
+                <div class="dropdown">
+                <a href="water-quality-report.html"><i class="fas fa-tint"></i> ข้อมูลคุณภาพน้ำ</a>
+                <div class="dropdown-content">
+                    <a href="ky.html"><i class="fas fa-tint"></i>เกาะยอ</a>
+                    <a href="mo3.html"><i class="fas fa-tint"></i>แหล่งน้ำธรรมชาติ</a>
+                    <a href="st.html"><i class="fas fa-tint"></i>ทะเลสาบสงขลา</a>
+                    <a href="sapan.html"><i class="fas fa-tint"></i>หัวสะพาน</a>
+                </div>
+                </div>
+            </li>
+            <li>
+                <a href="contact.html"><i class="fas fa-address-book"></i> ข้อมูลติดต่อ</a>
+            </li>
+            <li>
+                <a href="logout.html"><i class="fas fa-sign-out-alt"></i> ล็อกเอาท์</a>
+            </li>
+        </ul>
+    </div>    
+    
+    <div class="container">
+        <div class="contact-details">
+            <ul class="contact-details">
+                <li><i class="fas fa-map-marker-alt"></i> 1/19 หมู่ 3 ตำบลเขารูปช้าง อำเภอเมือง จังหวัดสงขลา 90000</li>
+                <li><i class="fas fa-phone-alt"></i> เบอร์โทรศัพท์: 074-311895 ต่อ 204,206 (งานตรวจสอบ)</li>
+                <li><i class="fas fa-envelope"></i> อีเมล: <a href="mailto:nica.carin@gmail.com">nica.carin@gmail.com</a></li>
+                <li><i class="fas fa-comments"></i> <a href="https://webportal.fisheries.go.th/comment/index.php/main?division=%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%88%E0%B8%B1%E0%B8%A2%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%9E%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%97%E0%B8%84%E0%B9%82%E0%B8%99%E0%B8%9A%E0%B8%A3%E0%B8%B5%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%99%E0%B8%A7%E0%B8%B1%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%A7%E0%B8%AA%E0%B8%99%E0%B8%B1%E0%B8%99%E0%B8%B1%E0%B8%99">ช่องทางการรับฟังความคิดเห็น</a></li>
+                <li><i class="fab fa-facebook-square"></i> <a href="https://www.facebook.com/nicaonline">ศูนย์วิจัยและพัฒนาเทคโนโลยีและนวัตกรรมสัตว์น้ำชายฝั่ง</a></li>
+            </ul>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.5448107324987!2d100.61934158205985!3d7.178496090739642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31b2cd2c0dfbf531%3A0x6a15fff1913576cf!2z4Lio4Li54LiZ4Lii4LmM4Lin4Li04LiI4Lix4Lii4LmB4Lil4Liw4Lie4Lix4LiS4LiZ4Liy4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14LmB4Lil4Liw4LiZ4Lin4Lix4LiV4LiB4Lij4Lij4Lih4Liq4Lix4LiV4Lin4LmM4LiZ4LmJ4Liz4LiK4Liy4Lii4Lid4Lix4LmI4LiH!5e0!3m2!1sth!2sth!4v1735806251882!5m2!1sth!2sth" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                
+        </div>
+    </div>
+   
+    <script>
+    document.getElementById("water-quality-dropdown").addEventListener("change", function() {
+        const selectedValue = this.value;
+        if (selectedValue === "kohyo") {
+            window.location.href = "kohyo-report.html";
+        } else if (selectedValue === "mo3") {
+            window.location.href = "mo3-report.html";
+        } else if (selectedValue === "st") {
+            window.location.href = "st-report.html";
+        }
+    });
+    </script>
+    
+</body>
+</html>

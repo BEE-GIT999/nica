@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>รายงานคุณภาพน้ำ - ตำบลเกาะยอ</title>
+    <!-- นำเข้าไลบรารี Font Awesome สำหรับไอคอน -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- นำเข้า Google Fonts ฟอนต์ Sarabun สำหรับภาษาไทย -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">    
+    <style>
+        @media (max-width: 768px) {
+        .sidebar {
+            width: 100px;
+            }
+        .form-container {
+            padding: 20px;
+            }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(145deg, #000000, #003898);
+            color: white;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+        }
+
+        /* Sidebar Links */
+        .sidebar ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            display: block;
+            padding: 15px;
+            transition: background-color 0.3s;
+        }
+
+         /* กำหนดลักษณะของโลโก้ใน Sidebar */
+         .sidebar img {
+            max-width: 100%; /* ปรับขนาดของรูปภาพให้มีความกว้างสูงสุดเท่ากับความกว้างของ container */
+            margin-bottom: 50px; /* ระยะห่างด้านล่าง */
+        }
+
+
+        .sidebar ul li a:hover {
+            background: linear-gradient(145deg, #ffffff, #003898);
+            color: #000000;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(145deg, #000000, #003898); /* พื้นหลังแบบไล่สี */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: white; /* เปลี่ยนสีลิงก์เป็นสีขาว */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
+
+        /* Form container */
+        .form-container {
+            width: 100%;
+            border-radius: 10px;
+            padding: 50px;
+            display: inline-block;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-left: 250px;
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .row label {
+            font-size: 20px;
+            color: #333;
+            padding: 10px;
+        }
+
+        .row select, 
+        .row input[type="radio"], 
+        .row button {
+            font-size: 18px;
+            accent-color: #000000;
+        }
+
+        select {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #month-picker, #year-picker {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        input[type="radio"] + label {
+            margin-right: 20px;
+        }
+
+        button {
+            background: linear-gradient(145deg, #000000, #003898);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        button:hover {
+            background: linear-gradient(145deg, #ffffff, #003898);
+            color: #000000;
+        }
+
+        .point-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .point-options label {
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .point-options input[type="radio"]:checked + label {
+            color: rgb(0, 0, 0);
+        }
+
+        #spinner {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <img src="/img/kpmm.png" alt="โลโก้หน่วยงาน">
+        </div>
+        <ul>
+            <li>
+                <a href="home.html"><i class="fas fa-home"></i> หน้าหลัก</a>
+            </li>
+            <li>
+                    <div class="dropdown">
+                        <a href="water-quality-report.html"><i class="fas fa-tint"></i> ข้อมูลคุณภาพน้ำ<span>▼</span></a>
+                        <div class="dropdown-content">
+                            <a href="ky.html"><i class="fas fa-tint"></i>เกาะยอ</a>
+                            <a href="mo3.html"><i class="fas fa-tint"></i>แหล่งน้ำธรรมชาติ</a>
+                            <a href="st.html"><i class="fas fa-tint"></i>ทะเลสาบสงขลา</a>
+                            <a href="sapan.html"><i class="fas fa-tint"></i>หัวสะพาน</a>
+                        </div>
+                    </div>
+            </li>
+            <li>
+                <a href="contact.html"><i class="fas fa-address-book"></i> ข้อมูลติดต่อ</a>
+            </li>
+            <li>
+                <a href="logout.html"><i class="fas fa-sign-out-alt"></i> ล็อกเอาท์</a>
+            </li>
+        </ul>
+    </div>    
+
+    <!-- Form container -->
+    <div class="form-container">
+        <h1>ข้อมูลคุณภาพน้ำ - ทะเลสาบสงขลา</h1>
+
+        <!-- เลือกช่วงเวลา -->
+        <div class="row">
+            <label>เลือกช่วงเวลา:</label>
+            <div>
+                <input type="radio" id="monthly" name="time-period" value="monthly" onchange="handleTimePeriodChange()">
+                <label for="monthly">รายเดือน</label>
+
+                <input type="radio" id="yearly" name="time-period" value="yearly" onchange="handleTimePeriodChange()">
+                <label for="yearly">รายปี</label>
+
+                <input type="radio" id="latest" name="time-period" value="latest" onchange="handleTimePeriodChange()">
+                <label for="latest">ล่าสุด</label>
+            </div>
+        </div>
+
+        <!-- แสดงปฏิทินเลือกเดือน -->
+        <div class="row" id="month-picker" style="display: none;">
+            <label for="month">เลือกเดือน:</label>
+            <input type="month" id="month">
+        </div>
+
+        <!-- แสดงเลือกปี -->
+        <div class="row" id="year-picker" style="display: none;">
+            <label for="year">เลือกปี:</label>
+            <select id="year">
+                <option value="">-- เลือกปี --</option>
+            </select>
+        </div>
+
+        <!-- ปุ่มแสดงผล -->
+        <div class="row">
+            <button type="button" onclick="displayData()">แสดงผล</button>
+        </div>
+
+        <div id="result">
+            <canvas id="waterQualityChart" style="max-width: 700px; margin: 20px auto;"></canvas>
+        </div>
+        <div id="spinner" style="display: none;">กำลังโหลด...</div>
+    </div>
+    <script>
+        function handleTimePeriodChange() {
+            const monthPicker = document.getElementById("month-picker");
+            const yearPicker = document.getElementById("year-picker");
+    
+            // ซ่อน input ทั้งหมดก่อน
+            monthPicker.style.display = "none";
+            yearPicker.style.display = "none";
+    
+            // แสดง input ที่เกี่ยวข้องตามค่าที่เลือก
+            if (document.getElementById("monthly").checked) {
+                monthPicker.style.display = "flex";
+            } else if (document.getElementById("yearly").checked) {
+                yearPicker.style.display = "flex";
+            }
+        }
+    
+        function displayData() {
+            const timePeriod = document.querySelector('input[name="time-period"]:checked').value;
+            let data = { timePeriod };
+    
+            if (timePeriod === "monthly") {
+                const month = document.getElementById("month").value;
+                if (!month) {
+                    alert("กรุณาเลือกเดือน");
+                    return;
+                }
+                data.month = month;
+            } else if (timePeriod === "yearly") {
+                const year = document.getElementById("year").value;
+                if (!year) {
+                    alert("กรุณาเลือกปี");
+                    return;
+                }
+                data.year = year;
+            }
+    
+            // แสดง spinner ระหว่างโหลดข้อมูล
+            document.getElementById("spinner").style.display = "block";
+    
+            // ส่งข้อมูลไปที่ PHP ผ่าน AJAX
+            fetch("fetch_data_st.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(data),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    document.getElementById("spinner").style.display = "none";
+    
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+    
+                    // แสดงข้อมูลในตาราง
+                    let tableHTML = `
+                        <table border="1" style="width: 85%; text-align: center; border-collapse: collapse; margin-top: 20px;
+                        margin-left: 250px; background-color: #f1f1f1;">
+                        <thead style="background: linear-gradient(145deg, #000000, #003898); color: white; font-size: 18px;">
+                            <tr>
+                                <th style="width: 7%;">จุดเก็บน้ำ</th>
+                                <th style="width: 9%;">วันที่/เดือน/ปี</th>
+                                <th style="width: 10%;">ปริมาณออกซิเจนละลายน้ำ</th>
+                                <th style="width: 5%;">พีเอช</th>
+                                <th style="width: 7%;">ความเค็ม</th>
+                                <th style="width: 8%;">ความโปร่งใส</th>
+                                <th style="width: 7%;">อุณหภูมิ</th>
+                                <th style="width: 10%;">แอมโมเนียรวม</th>
+                                <th style="width: 10%;">ไนโตรเจนรวม</th>
+                                <th style="width: 10%;">ฟอสฟอรัสรวม</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                    `;
+    
+                    data.forEach((row) => {
+                        tableHTML += `
+                            <tr>
+                                 <td>${row.point}</td>
+                                <td>${row.date}</td>
+                                <td>${row.oxygen}</td>
+                                <td>${row.ph}</td>
+                                <td>${row.salinity}</td>
+                                <td>${row.transparency}</td>
+                                <td>${row.temperature}</td>
+                                <td>${row.tan}</td>
+                                <td>${row.tn}</td>
+                                <td>${row.tp}</td>
+                            </tr>
+                        `;
+                    });
+    
+                    tableHTML += `</tbody></table>`;
+                    document.getElementById("result").innerHTML = tableHTML;
+                })
+                .catch((error) => {
+                    document.getElementById("spinner").style.display = "none";
+                    console.error("Error:", error);
+                    alert("เกิดข้อผิดพลาดในการโหลดข้อมูล");
+                });
+        }
+    
+        // สร้างปีใน dropdown
+        const yearDropdown = document.getElementById("year");
+        const currentYear = new Date().getFullYear();
+        for (let i = currentYear; i >= 2000; i--) {
+            const option = document.createElement("option");
+            option.value = i;
+            option.textContent = i;
+            yearDropdown.appendChild(option);
+        }
+    </script>    
+
+</body>
+</html>

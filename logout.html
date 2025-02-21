@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: linear-gradient(145deg, #000000, #003898); /* พื้นหลังแบบไล่สี */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+        }
+
+        button:hover {
+            background: linear-gradient(145deg, #ffffff, #003898);
+            color: black;
+        }
+    </style>
+        <script type="text/javascript">
+        function logout() {
+            // อาจจะทำการลบข้อมูล session หรือ cookie ที่เกี่ยวข้องกับการล็อกอินก่อน
+            // เช่น:
+            // document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+            // รีไดเรกต์ไปที่หน้า login.html
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+     <h1>คุณได้ออกจากระบบแล้ว</h1>
+     <button onclick="logout()">กลับไปยังหน้าเข้าสู่ระบบ</button>
+</body>
+</html>

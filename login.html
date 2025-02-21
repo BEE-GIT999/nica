@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', sans-serif;
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                flex-direction: row;
+            }
+        }
+
+        .left-section,
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .left-section {
+            background: linear-gradient(145deg, #000000, #003898);
+            text-align: center;
+            color: white;
+        }
+
+        .left-section img {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .left-section h1 {
+            margin: 10px 0;
+            font-size: 28px;
+        }
+
+        .left-section h2 {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .right-section {
+            background: linear-gradient(135deg, #ffffff, #f4f4f4);
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form {
+            width: 70%;
+            text-align: center;
+        }
+
+        .login-form h2 { 
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin: 2rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0.5rem;
+            position: relative;
+        }
+
+        .input-group i {
+            margin-right: 0.5rem;
+            color: #333;
+        }
+
+        .input-group input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .login-form button {
+            background: linear-gradient(145deg, #000000, #003898);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 50%;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .login-form button:hover {
+            background: linear-gradient(145deg, #ffffff, #003898);
+            color: #000;
+        }
+
+        .login-form a {
+            display: block;
+            margin-top: 0.5rem;
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="left-section">
+        <div>
+            <img src="/img/kpmm.png" alt="โลโก้หน่วยงาน">
+            <h1>ศูนย์วิจัยและพัฒนาเทคโนโลยีและนวัตกรรมสัตว์น้ำชายฝั่ง</h1>
+            <h2>ระบบรายงานคุณภาพน้ำ</h2>
+        </div>
+    </div>
+    <div class="right-section">
+        <div class="login-form">
+            <h2>ลงชื่อเข้าใช้</h2>
+            <form method="POST" action="login_process.php">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" name="email" placeholder="อีเมล" required>
+                </div>
+                <span class="error-message" id="emailField">กรุณากรอกอีเมล</span>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input id="password" type="password" name="password" placeholder="รหัสผ่าน" required>
+                    <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                </div>                
+                <span class="error-message" id="passwordError">กรุณากรอกรหัสผ่าน</span>
+
+                <button type="submit">เข้าสู่ระบบ</button>
+            </form>
+            <a href="forget-password.html">ลืมรหัสผ่าน?</a>
+            <a href="register.html">ลงทะเบียน</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            this.classList.toggle('fa-eye-slash'); // เปลี่ยนไอคอน
+        });
+
+        // ตรวจสอบข้อมูลก่อนส่ง
+        document.querySelector('form').addEventListener('submit', function (event) {
+            const emailField = document.querySelector('input[name="email"]');
+            const passwordField = document.querySelector('input[name="password"]');
+            const emailError = document.getElementById('emailField');
+            const passwordError = document.getElementById('passwordError');
+
+            let isValid = true;
+
+            // ตรวจสอบอีเมล
+            if (!emailField.value.trim()) {
+                emailField.style.borderColor = 'red';
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailField.style.borderColor = '#ccc';
+                emailError.style.display = 'none';
+            }
+
+            // ตรวจสอบรหัสผ่าน
+            if (!passwordField.value.trim()) {
+                passwordField.style.borderColor = 'red';
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordField.style.borderColor = '#ccc';
+                passwordError.style.display = 'none';
+            }
+
+            // หากข้อมูลไม่ครบ จะไม่ส่งฟอร์ม
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
