@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <!-- กำหนดการตั้งค่าเมตาของเอกสาร HTML เช่น ชุดอักขระ และการตั้งค่าการแสดงผลบนมือถือ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าหลัก</title>
+
+    <!-- ลิงก์ไปยังไอคอนจาก Font Awesome เพื่อใช้งานไอคอนต่างๆ -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- ลิงก์ไปยัง Google Fonts เพื่อใช้ฟอนต์ Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ตั้งค่ามาตรฐานสำหรับการจัดการระยะขอบและการเติม */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* กำหนดลักษณะของ body โดยใช้ flexbox เพื่อจัดเรียงองค์ประกอบ */
+        body {
+            font-family: 'Sarabun', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-image: url("/img/kohyor1.jpeg");
+            background-size: cover;
+
+        }
+
+        /* กำหนดลักษณะของ Sidebar */
+        .sidebar {
+            width: 250px; /* กำหนดความกว้างของ Sidebar */
+            background: linear-gradient(145deg, #000000, #003898); /* พื้นหลังแบบไล่สี */
+            color: white; /* สีของข้อความใน Sidebar */
+            padding: 15px; /* ระยะห่างภายใน */
+            display: flex; /* ใช้ flexbox เพื่อจัดการ layout */
+            flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
+            height: 100%; /* ให้ Sidebar มีความสูงเต็มหน้าจอ */
+            position: fixed; /* ติดตั้งให้อยู่ตรงกลาง */
+        }
+
+        /* กำหนดลักษณะของโลโก้ใน Sidebar */
+        .sidebar img {
+            max-width: 100%; /* ปรับขนาดของรูปภาพให้มีความกว้างสูงสุดเท่ากับความกว้างของ container */
+            margin-bottom: 50px; /* ระยะห่างด้านล่าง */
+        }
+
+        /* กำหนดลักษณะของรายการใน Sidebar */
+        .sidebar ul {
+            list-style: none; /* เอาเครื่องหมายจุดจากรายการ */
+            padding-left: 0; /* เอาการเยื้องทางซ้าย */
+        }
+
+        /* กำหนดลักษณะของแต่ละรายการใน Sidebar */
+        .sidebar ul li {
+            margin-bottom: 15px; /* ระยะห่างระหว่างรายการ */
+        }
+
+        /* กำหนดลักษณะของลิงก์ใน Sidebar */
+        .sidebar ul li a {
+            text-decoration: none; /* เอาขีดเส้นใต้ */
+            color: white; /* สีของลิงก์ */
+            font-size: 20px; /* ขนาดฟอนต์ */
+            display: block; /* ทำให้ลิงก์เต็มความกว้างของรายการ */
+            padding: 15px; /* ระยะห่างภายในลิงก์ */
+            transition: background-color 0.3s; /* เพิ่มเอฟเฟกต์การเปลี่ยนสีเมื่อโฮเวอร์ */
+        }
+        .sidebar ul li a i {
+            margin-right: 10px; /* ระยะห่างระหว่างไอคอนกับข้อความ */
+            font-size: 20px; /* ขนาดไอคอน */
+        }
+
+        /* กำหนดลักษณะของลิงก์เมื่อโฮเวอร์ */
+        .sidebar ul li a:hover {
+            background: linear-gradient(145deg, #ffffff, #003898);
+            color: #000000;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(145deg, #000000, #003898); /* พื้นหลังแบบไล่สี */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: white; /* เปลี่ยนสีลิงก์เป็นสีขาว */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
+
+        /* กำหนดลักษณะของพื้นที่เนื้อหาหลัก */
+        .main-content {
+            flex: 1; /* ให้เนื้อหาหลักมีความกว้างที่เหลือ */
+            padding: 10px; /* ระยะห่างภายใน */
+            background: #fff0f09a; /* พื้นหลังสีเทาอ่อน */
+            display: flex; /* ใช้ flexbox เพื่อจัดเรียงรูปภาพ */
+            flex-direction: column; /* จัดเรียงรูปภาพในแนวนอน */
+            overflow-y: auto; /* ให้มีการเลื่อนแนวตั้งเมื่อเนื้อหาเกินขนาด */
+        }
+
+        /* กำหนดลักษณะของรูปภาพในเนื้อหาหลัก */
+        .main-content img {
+            max-width: 40%; /* ปรับขนาดของรูปภาพให้มีความกว้างตามที่เราต้องการ */
+            border-radius: 10px; /* ทำให้มีมุมโค้ง */
+            margin: 50px; /* จัดให้รูปภาพอยู่ตรงกลาง */
+            margin-left:30%; /* จัดให้รูปภาพอยู่ตรงกลาง */
+            margin-top: 5px;
+            border: 3px solid #000000; /* ขอบของฟอร์ม */
+            color: #000;
+        }
+
+        /* กำหนดลักษณะของลิงก์ในเนื้อหาหลัก */
+        .main-content a {
+            text-decoration: none; /* เอาขีดเส้นใต้ */
+            color: #000000; /* สีข้อความ */
+            text-align: center; /* จัดข้อความตรงกลาง */
+            font-size: 25px; /* ขนาดตัวอักษร */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <img src="/img/kpmm.png" alt="โลโก้หน่วยงาน">
+        </div>
+        <ul>
+            <li>
+                <a href="home.html"><i class="fas fa-home"></i> หน้าหลัก</a>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a href="water-quality-report_admin.html"><i class="fas fa-tint"></i> ข้อมูลคุณภาพน้ำ<span>▼</span></a>
+                    <div class="dropdown-content">
+                        <a href="ky_admin.html"><i class="fas fa-tint"></i>เกาะยอ</a>
+                        <a href="mo3_admin.html"><i class="fas fa-tint"></i>แหล่งน้ำธรรมชาติ</a>
+                        <a href="st_admin.html"><i class="fas fa-tint"></i>ทะเลสาบสงขลา</a>
+                        <a href="sapan_admin.html"><i class="fas fa-tint"></i>หัวสะพาน</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="contact.html"><i class="fas fa-address-book"></i> ข้อมูลติดต่อ</a>
+            </li>
+            <li>
+                <a href="/logout.html"><i class="fas fa-sign-out-alt"></i> ล็อกเอาท์</a>
+            </li>
+        </ul>
+    </div>    
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- รูปภาพที่อยู่ในเนื้อหาหลัก -->
+        <div>
+            <a href="ky_admin.html"> <p>คุณภาพน้ำพื้นที่ตำบลเกาะยอ</p>
+                <img src="/img/kohyor.jpeg" alt="คุณภาพน้ำพื้นที่ตำบลเกาะยอ">
+               
+            </a>
+
+            <a href="mo3_admin.html"> <p>เฝ้าระวังแหล่งน้ำธรรมชาติ</p>
+                <img src="/img/mo3.jpg" alt="เฝ้าระวังแหล่งน้ำธรรมชาติ">
+                
+            </a>
+
+            <a href="st_admin.html"><p>คุณภาพน้ำในทะเลสาบสงขลา</p>
+                <img src="/img/st.jpg" alt="คุณภาพน้ำในทะเลสาบสงขลา"> 
+                
+            </a>
+
+            <a href="sapan_admin.html"><p>คุณภาพน้ำหัวสะพาน</p>
+                <img src="/img/sapan.png" alt="คุณภาพน้ำหัวสะพาน"> 
+                
+            </a>
+        </div>
+        
+    </div>
+
+</body>
+</html>
